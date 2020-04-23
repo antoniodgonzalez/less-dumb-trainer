@@ -1,4 +1,16 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# less-dumb-trainer
+
+This project aims to automate a dumb trainer by using an Arduino.
+
+The first goal is to manually control the trainer resistance level thought a PWA. An Arduino will pull the resistance cable by using a servo.
+
+Example config.json file:
+
+```json
+{
+    "serialPort": "/dev/ttyACM0"
+}
+```
 
 ## Available Scripts
 
