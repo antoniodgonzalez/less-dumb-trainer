@@ -15,6 +15,11 @@ server.register(require('fastify-cors'), {
     origin: true,
 })
 
+function getDegrees(value: number): number {
+    const v = Math.min(Math.max(value, 0), 100) / 100;
+    return Math.round(Math.acos(1 - 2 * v) * 180 / Math.PI);
+}
+
 server.put("/value", async (request, reply) => {
     const { value } = request.body;
     if (!serialPort.isOpen) {
@@ -22,19 +27,19 @@ server.put("/value", async (request, reply) => {
     }
 
     return new Promise((resolve, reject) => {
-        const listener = ([value]) => { 
+        const listener = () => { 
             resolve({ value }); 
             serialPort.off('data', listener);
         };
         serialPort.on('data', listener);
-        serialPort.write(Buffer.from([value]), error => { 
+        const degrees = getDegrees(value);
+        serialPort.write(Buffer.from([degrees]), error => { 
             if (error) {
                 reject(error);
             }
         });
     });
 });
-
 
 server.listen(4000, '0.0.0.0', err => {
     if (err) {

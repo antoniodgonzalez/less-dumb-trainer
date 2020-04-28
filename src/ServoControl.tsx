@@ -18,15 +18,16 @@ export const ServoControl = () => {
             }).catch(err => setStatus(`error: ${err}`));
     };
 
-    const max = 120;
+    const max = 100;
+    const buttonStep = 5;
 
     return (
         <div>
-            <p>The value is {value}º</p>
-            <button onClick={() => changeValue(Math.max(value - 5, 0))}>-</button>
+            <p>Resistance is at {value}%</p>
+            <button onClick={() => changeValue(Math.max(value - buttonStep, 0))}>-</button>
             <input type="range" value={value} min={0} max={max}
                 onChange={e => changeValue(e.target.valueAsNumber)} />
-            <button onClick={() => changeValue(Math.min(value + 5, max))}>+</button>
+            <button onClick={() => changeValue(Math.min(value + buttonStep, max))}>+</button>
             <p>{status}</p>
         </div>
     );
