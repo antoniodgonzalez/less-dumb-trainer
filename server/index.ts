@@ -20,7 +20,19 @@ function getDegrees(value: number): number {
     return Math.round(Math.acos(1 - 2 * v) * 180 / Math.PI);
 }
 
-server.put("/value", async (request, reply) => {
+const opts = {
+    schema: {
+        body: {
+            type: 'object',
+            properties: {
+                value: { type: 'integer',  minimum: 0, maximum: 100 }
+            },
+            required: ['value']
+        }
+    }
+}
+
+server.put("/resistance", opts, async (request, reply) => {
     const { value } = request.body;
     if (!serialPort.isOpen) {
         serialPort.open();

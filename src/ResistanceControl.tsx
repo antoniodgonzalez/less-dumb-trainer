@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-export const ServoControl = () => {
+export const ResistanceControl = () => {
     const [value, setValue] = useState(0);
     const [status, setStatus] = useState('');
 
     const changeValue = (value: number) => {
-        fetch(`http://${window.location.hostname}:4000/value`, {
+        fetch(`http://${window.location.hostname}:4000/resistance`, {
             method: "PUT",
             body: JSON.stringify({ value }),
             headers:{
